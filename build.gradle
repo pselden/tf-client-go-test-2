@@ -11,34 +11,23 @@ project.ext {
   jvm = '8'
   tfs = '1.12'
   grpc = '1.20.0'
-  proto = '3.6.1'
+  proto = '3.7.1'
 }
 
-allprojects {
-  apply plugin: 'java'
-  apply plugin: 'maven'
-  apply plugin: 'maven-publish'
-
-  group = 'io.opil'
-  version = "${tfs}.j${jvm}"
-
-  sourceCompatibility = "1.${jvm}"
-  targetCompatibility = "1.${jvm}"
-
-  repositories {
-    mavenCentral()
-  }
-
-  publishing {
-    publications {
-      binary(MavenPublication) {
-        from components.java
-      }
-    }
-  }
-}
-
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'com.google.protobuf'
+
+group = 'io.opil'
+version = "${tfs}.j${jvm}"
+
+sourceCompatibility = "1.${jvm}"
+targetCompatibility = "1.${jvm}"
+
+repositories {
+  mavenCentral()
+}
 
 protobuf {
   protoc {
@@ -64,4 +53,12 @@ dependencies {
 
 jar {
   baseName 'tensorflow-serving-client'
+}
+
+publishing {
+  publications {
+    binary(MavenPublication) {
+      from components.java
+    }
+  }
 }

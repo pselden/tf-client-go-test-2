@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ver="r$(cat VERSION)"
+ver="r$(cat VERSION | tr -d '\n')"
 
 set -e
 
