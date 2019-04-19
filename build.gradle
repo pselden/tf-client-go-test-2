@@ -1,0 +1,67 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+  }
+}
+
+project.ext {
+  jvm = '8'
+  tfs = '1.12'
+  grpc = '1.20.0'
+  proto = '3.6.1'
+}
+
+allprojects {
+  apply plugin: 'java'
+  apply plugin: 'maven'
+  apply plugin: 'maven-publish'
+
+  group = 'io.opil'
+  version = "${tfs}.j${jvm}"
+
+  sourceCompatibility = "1.${jvm}"
+  targetCompatibility = "1.${jvm}"
+
+  repositories {
+    mavenCentral()
+  }
+
+  publishing {
+    publications {
+      binary(MavenPublication) {
+        from components.java
+      }
+    }
+  }
+}
+
+apply plugin: 'com.google.protobuf'
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc:${proto}"
+  }
+  plugins {
+    grpc {
+      artifact = "io.grpc:protoc-gen-grpc-java:${grpc}"
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins {
+      grpc { }
+    }
+  }
+}
+
+dependencies {
+  compile "com.google.protobuf:protobuf-java:${proto}"
+  compile "io.grpc:grpc-protobuf:${grpc}"
+  compile "io.grpc:grpc-stub:${grpc}"
+}
+
+jar {
+  baseName 'tensorflow-serving-client'
+}

@@ -6,12 +6,16 @@ Check tensorflow serving project for details:
 
 https://tensorflow.github.io/serving/
 
-## Build jar file
-```
-mvn clean package
-```
+## update proto files
 
-## install built java file to local repo used by other project
 ```
-mvn install:install-file -Dfile=./target/tensorflow-client-1.4-5.jar -DgroupId=com.yesup.oss -DartifactId=tensorflow-client -Dversion=1.4-5 -Dpackaging=jar -DgeneratePom=true
+./proto.sh
 ```
+* the desired version can be specified in the `VERSION` file
+
+## build jar file
+
+```
+./build.sh
+```
+* `tensorflow-serving-client` is located in `build/libs`
