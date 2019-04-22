@@ -7,23 +7,22 @@ buildscript {
   }
 }
 
-project.ext {
-  jvm = '8'
-  tfs = '1.12'
-  grpc = '1.20.0'
-  proto = '3.7.1'
+ext {
+  jvmV = '8'
+  tfsV = '1.12'
+  grpcV = '1.20.0'
+  protoV = '3.7.1'
 }
 
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'maven-publish'
 apply plugin: 'com.google.protobuf'
 
 group = 'io.opil'
-version = "${tfs}.j${jvm}"
+version = "${tfsV}.j${jvmV}"
 
-sourceCompatibility = "1.${jvm}"
-targetCompatibility = "1.${jvm}"
+sourceCompatibility = "1.${jvmV}"
+targetCompatibility = "1.${jvmV}"
 
 repositories {
   mavenCentral()
@@ -31,11 +30,11 @@ repositories {
 
 protobuf {
   protoc {
-    artifact = "com.google.protobuf:protoc:${proto}"
+    artifact = "com.google.protobuf:protoc:${protoV}"
   }
   plugins {
     grpc {
-      artifact = "io.grpc:protoc-gen-grpc-java:${grpc}"
+      artifact = "io.grpc:protoc-gen-grpc-java:${grpcV}"
     }
   }
   generateProtoTasks {
@@ -46,19 +45,11 @@ protobuf {
 }
 
 dependencies {
-  compile "com.google.protobuf:protobuf-java:${proto}"
-  compile "io.grpc:grpc-protobuf:${grpc}"
-  compile "io.grpc:grpc-stub:${grpc}"
+  compile "com.google.protobuf:protobuf-java:${protoV}"
+  compile "io.grpc:grpc-protobuf:${grpcV}"
+  compile "io.grpc:grpc-stub:${grpcV}"
 }
 
 jar {
   baseName 'tensorflow-serving-client'
-}
-
-publishing {
-  publications {
-    binary(MavenPublication) {
-      from components.java
-    }
-  }
 }
