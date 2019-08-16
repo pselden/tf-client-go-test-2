@@ -2,9 +2,7 @@
 
 A prebuilt tensorflow serving client from the tensorflow serving proto files
 
-Check tensorflow serving project for details: 
-
-https://tensorflow.github.io/serving/
+Check tensorflow serving project for details: https://tensorflow.github.io/serving/
 
 ## update proto files
 
@@ -16,6 +14,6 @@ https://tensorflow.github.io/serving/
 ## build jar file
 
 ```
-./build.sh
+gradle build
 ```
 * `tensorflow-serving-client` is located in `build/libs`

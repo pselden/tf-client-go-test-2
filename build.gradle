@@ -9,7 +9,7 @@ buildscript {
 
 ext {
   jvmV = '8'
-  tfsV = '1.13'
+  tfsV = new File('VERSION').text.trim()
   grpcV = '1.23.0'
   protoV = '3.9.1'
 }
