@@ -1,9 +1,8 @@
 #!/bin/bash
 
-ver="r$(cat VERSION | tr -d '\n')"
-
 set -e
 
+ver="r$(cat VERSION | tr -d '\n')"
 proj=tensorflow-serving-client
 repo=build/proto
 goto=src/main/proto

@@ -1,3 +1,5 @@
 #!/bin/bash
 
-gradle -Dtfs=$(cat VERSION | tr -d '\n') build
+set -e
+
+gradle -DtfsV=$(cat VERSION | tr -d '\n') build
