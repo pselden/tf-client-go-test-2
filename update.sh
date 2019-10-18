@@ -5,7 +5,7 @@ set -e
 ver="r$(cat VERSION | tr -d '\n')"
 proj=tensorflow-serving-client
 repo=build/proto
-goto=src/main/proto
+goto=proto
 apis=tensorflow_serving/apis
 
 rm -rf ${repo}

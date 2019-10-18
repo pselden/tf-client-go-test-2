@@ -4,12 +4,13 @@ buildscript {
   }
   dependencies {
     classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
+    classpath "ru.vyarus:gradle-use-python-plugin:1.2.0"
   }
 }
 
 ext {
-  jvmVer = "8"
   tfsVer = new File("VERSION").text.trim()
+  jvmVer = "8"
   grpcVer = "1.24.0"
   protoVer = "3.10.0"
 }
@@ -17,6 +18,7 @@ ext {
 apply plugin: "java"
 apply plugin: "maven"
 apply plugin: "com.google.protobuf"
+apply plugin: "ru.vyarus.use-python"
 
 group = "io.opil"
 version = "${tfsVer}.j${jvmVer}"
@@ -26,6 +28,14 @@ targetCompatibility = "1.${jvmVer}"
 
 repositories {
   mavenCentral()
+}
+
+sourceSets {
+  main {
+    proto {
+      srcDir "proto"
+    }
+  }
 }
 
 protobuf {
@@ -38,6 +48,11 @@ protobuf {
     }
   }
   generateProtoTasks {
+    all()*.builtins {
+      cpp { }
+      java { }
+      python { }
+    }
     all()*.plugins {
       grpc { }
     }
@@ -52,4 +67,9 @@ dependencies {
 
 jar {
   baseName "tensorflow-serving-client"
+}
+
+task wheel(type: PythonTask) {
+  dependsOn "generateProto"
+  command "setup.py bdist_wheel"
 }

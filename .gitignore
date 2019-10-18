@@ -1,5 +1,7 @@
 build/
+dist/
 .gradle/
 gradle*
 .idea/
 *.iml
+
