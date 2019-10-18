@@ -3,26 +3,26 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
+    classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
   }
 }
 
 ext {
-  jvmV = '8'
-  tfsV = new File('VERSION').text.trim()
-  grpcV = '1.23.0'
-  protoV = '3.9.1'
+  jvmVer = "8"
+  tfsVer = new File("VERSION").text.trim()
+  grpcVer = "1.24.0"
+  protoVer = "3.10.0"
 }
 
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'com.google.protobuf'
+apply plugin: "java"
+apply plugin: "maven"
+apply plugin: "com.google.protobuf"
 
-group = 'io.opil'
-version = "${tfsV}.j${jvmV}"
+group = "io.opil"
+version = "${tfsVer}.j${jvmVer}"
 
-sourceCompatibility = "1.${jvmV}"
-targetCompatibility = "1.${jvmV}"
+sourceCompatibility = "1.${jvmVer}"
+targetCompatibility = "1.${jvmVer}"
 
 repositories {
   mavenCentral()
@@ -30,11 +30,11 @@ repositories {
 
 protobuf {
   protoc {
-    artifact = "com.google.protobuf:protoc:${protoV}"
+    artifact = "com.google.protobuf:protoc:${protoVer}"
   }
   plugins {
     grpc {
-      artifact = "io.grpc:protoc-gen-grpc-java:${grpcV}"
+      artifact = "io.grpc:protoc-gen-grpc-java:${grpcVer}"
     }
   }
   generateProtoTasks {
@@ -45,11 +45,11 @@ protobuf {
 }
 
 dependencies {
-  compile "com.google.protobuf:protobuf-java:${protoV}"
-  compile "io.grpc:grpc-protobuf:${grpcV}"
-  compile "io.grpc:grpc-stub:${grpcV}"
+  implementation "com.google.protobuf:protobuf-java:${protoVer}"
+  implementation "io.grpc:grpc-protobuf:${grpcVer}"
+  implementation "io.grpc:grpc-stub:${grpcVer}"
 }
 
 jar {
-  baseName 'tensorflow-serving-client'
+  baseName "tensorflow-serving-client"
 }

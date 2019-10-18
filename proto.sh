@@ -10,10 +10,11 @@ apis=tensorflow_serving/apis
 
 rm -rf ${repo}
 function fetchRepo {
+  set -e
   mkdir -p ${repo}/tmp
   git -C ${repo}/tmp \
       clone --depth 1 -b ${ver} \
-            https://github.com/tensorflow/${1}.git
+      https://github.com/tensorflow/${1}.git
   mv ${repo}/tmp/${1}/${2} ${repo}/
   rm -rf ${repo}/tmp
 }
