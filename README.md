@@ -2,7 +2,11 @@
 
 [![Build Status](https://travis-ci.com/figroc/tensorflow-serving-client.svg?branch=master)](https://travis-ci.com/figroc/tensorflow-serving-client)
 
-A prebuilt tensorflow serving client from the tensorflow serving proto files
+A prebuilt tensorflow serving client from the tensorflow serving proto files.
+Currently supported build:
+  * C++
+  * Java
+  * Python
 
 Check tensorflow serving project for details: https://tensorflow.github.io/serving/
 
@@ -22,4 +26,10 @@ gradle build
 ```
 gradle wheel
 ```
-* `tensorflow_serving_client` is located in `dist`
+* `tensorflow_serving_client` is located in `build/dist`
+
+### build native library
+```
+gradle cmake
+```
+* `libtensorflow_serving_client.a` is located in `build/dist/lib/static`

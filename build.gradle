@@ -1,11 +1,8 @@
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
-    classpath "ru.vyarus:gradle-use-python-plugin:1.2.0"
-  }
+plugins {
+  id "java"
+  id "maven"
+  id "com.google.protobuf" version "0.8.10"
+  id "ru.vyarus.use-python" version "1.2.0"
 }
 
 ext {
@@ -14,11 +11,6 @@ ext {
   grpcVer = "1.24.0"
   protoVer = "3.10.0"
 }
-
-apply plugin: "java"
-apply plugin: "maven"
-apply plugin: "com.google.protobuf"
-apply plugin: "ru.vyarus.use-python"
 
 group = "io.opil"
 version = "${tfsVer}.j${jvmVer}"
@@ -71,5 +63,19 @@ jar {
 
 task wheel(type: PythonTask) {
   dependsOn "generateProto"
-  command "setup.py bdist_wheel"
+  command "setup.py bdist_wheel -d build/dist"
+}
+
+task cmake() {
+  dependsOn "generateProto"
+  doLast {
+    exec {
+      workingDir "build"
+      commandLine "cmake", "-DCMAKE_INSTALL_PREFIX=", ".."
+    }
+    exec {
+      workingDir "build"
+      commandLine "make", "DESTDIR=dist", "install"
+    }
+  }
 }
