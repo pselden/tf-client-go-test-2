@@ -1,9 +1,16 @@
-plugins {
-  id "java"
-  id "maven"
-  id "com.google.protobuf" version "0.8.10"
-  id "ru.vyarus.use-python" version "1.2.0"
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
+    classpath "ru.vyarus:gradle-use-python-plugin:1.2.0"
+  }
 }
+
+apply plugin: "java-library"
+apply plugin: "com.google.protobuf"
+apply plugin: "ru.vyarus.use-python"
 
 ext {
   tfsVer = new File("VERSION").text.trim()
@@ -13,7 +20,7 @@ ext {
 }
 
 group = "io.opil"
-version = "${tfsVer}.j${jvmVer}"
+version = "${tfsVer}"
 
 sourceCompatibility = "1.${jvmVer}"
 targetCompatibility = "1.${jvmVer}"
@@ -51,6 +58,14 @@ protobuf {
   }
 }
 
+sourceSets {
+  generated {
+    java {
+      srcDir "${protobuf.generatedFilesBaseDir}/main/java"
+    }
+  }
+}
+
 dependencies {
   implementation "com.google.protobuf:protobuf-java:${protoVer}"
   implementation "io.grpc:grpc-protobuf:${grpcVer}"
@@ -59,6 +74,11 @@ dependencies {
 
 jar {
   baseName "tensorflow-serving-client"
+}
+
+javadoc {
+  source sourceSets.generated.java
+  options.addStringOption("Xdoclint:none", "-quiet")
 }
 
 task wheel(type: PythonTask) {
