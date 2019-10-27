@@ -22,6 +22,8 @@ gradle build
 ```
 * `tensorflow-serving-client` is located in `build/libs`
 
+The library has been published in maven central under the name `io.opil:tensorflow-serving-client`
+
 ### build wheel file
 ```
 gradle wheel
