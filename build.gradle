@@ -83,7 +83,7 @@ javadoc {
 
 task wheel(type: PythonTask) {
   dependsOn "generateProto"
-  command "setup.py bdist_wheel -d build/dist"
+  command "setup.py sdist -d build/dist bdist_wheel -d build/dist"
 }
 
 task cmake() {
