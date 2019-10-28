@@ -37,13 +37,25 @@ sourceSets {
   }
 }
 
+static def getGrpcPlugin(name) {
+  def path = "which grpc_${name}_plugin".execute()
+  path.waitFor()
+  return path.in.text.trim()
+}
+
 protobuf {
   protoc {
     artifact = "com.google.protobuf:protoc:${protoVer}"
   }
   plugins {
-    grpc {
+    grpc_cpp {
+      path = getGrpcPlugin("cpp")
+    }
+    grpc_java {
       artifact = "io.grpc:protoc-gen-grpc-java:${grpcVer}"
+    }
+    grpc_python {
+      path = getGrpcPlugin("python")
     }
   }
   generateProtoTasks {
@@ -53,7 +65,15 @@ protobuf {
       python { }
     }
     all()*.plugins {
-      grpc { }
+      grpc_cpp {
+        outputSubDir = "cpp"
+      }
+      grpc_java {
+        outputSubDir = "java"
+      }
+      grpc_python {
+        outputSubDir = "python"
+      }
     }
   }
 }
@@ -63,6 +83,18 @@ sourceSets {
     java {
       srcDir "${protobuf.generatedFilesBaseDir}/main/java"
     }
+  }
+}
+
+task cleanEmptyGrpc(type: Delete) {
+  dependsOn "generateProto"
+  delete fileTree("${protobuf.generatedFilesBaseDir}/main/cpp") {
+    include "**/*.grpc.pb.*"
+    exclude "**/*_service.grpc.pb.*"
+  }
+  delete fileTree("${protobuf.generatedFilesBaseDir}/main/python") {
+    include "**/*_pb2_grpc.py"
+    exclude "**/*_service_pb2_grpc.py"
   }
 }
 
@@ -82,12 +114,12 @@ javadoc {
 }
 
 task wheel(type: PythonTask) {
-  dependsOn "generateProto"
+  dependsOn "cleanEmptyGrpc"
   command "setup.py sdist -d build/dist bdist_wheel -d build/dist"
 }
 
 task cmake() {
-  dependsOn "generateProto"
+  dependsOn "cleanEmptyGrpc"
   doLast {
     exec {
       workingDir "build"

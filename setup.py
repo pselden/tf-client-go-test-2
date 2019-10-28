@@ -18,7 +18,7 @@ def init_package():
 
 
 setup(
-  name="tensorflow_serving_client_primitive",
+  name="tensorflow_serving_client_grpc",
   python_requires=">=3.5",
   install_requires=["grpcio", "protobuf"],
   author="Figroc Chen",

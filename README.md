@@ -28,9 +28,9 @@ The library has been published in maven central under the name `io.opil:tensorfl
 ```
 gradle wheel
 ```
-* `tensorflow_serving_client_primitive` is located in `build/dist`
+* `tensorflow_serving_client_grpc` is located in `build/dist`
 
-The library has been published in pypi.org under the name `tensorflow_serving_client_primitive`.
+The library has been published in pypi.org under the name `tensorflow-serving-client-grpc`.
 
 ### build native library
 ```
