@@ -37,3 +37,8 @@ The library has been published in pypi.org under the name `tensorflow-serving-cl
 gradle cmake
 ```
 * `libtensorflow_serving_client.a` is located in `build/dist/lib/static`
+
+### build npm tarball
+```
+npm pack
+```
