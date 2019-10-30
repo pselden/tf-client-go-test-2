@@ -7,6 +7,8 @@ Currently supported build:
   * C++
   * Java
   * Python
+  * Node
+  * Go
 
 Check tensorflow serving project for details: https://tensorflow.github.io/serving/
 
@@ -44,8 +46,17 @@ gradle cmake
 * `libtensorflow_serving_client.a` is located in `build/dist/lib/static`
 * **prerequisite:** `libprotobuf-dev` on Ubuntu and `protobuf` on macOS
 
-### build npm tarball
+### build node tarball
 ```
 npm pack
 ```
-* `tensorflow_serving_client`
+* `tensorflow_serving_client` tarball is located in project root dir
+
+The library has been published in npmjs.com under the name `tensorflow-serving-client`
+
+### build go module
+```
+gradle golang
+```
+* `tensorflow-serving-client` is located in `build/generated/source/proto/main/go`
+* **prerequisite:** `github.com/golang/protobuf/protoc-gen-go` for build

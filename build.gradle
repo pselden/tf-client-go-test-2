@@ -1,19 +1,23 @@
 buildscript {
   repositories {
-    mavenCentral()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
   }
   dependencies {
     classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
     classpath "ru.vyarus:gradle-use-python-plugin:1.2.0"
+    classpath "gradle.plugin.com.github.blindpirate:gogradle:0.11.4"
   }
 }
 
 apply plugin: "java-library"
 apply plugin: "com.google.protobuf"
 apply plugin: "ru.vyarus.use-python"
+apply plugin: "com.github.blindpirate.gogradle"
 
 ext {
-  tfsVer = new File("VERSION").text.trim()
+  tfsVer = file("VERSION").text.trim()
   jvmVer = "8"
   grpcVer = "1.24.0"
   protoVer = "3.10.0"
@@ -102,6 +106,9 @@ dependencies {
   implementation "com.google.protobuf:protobuf-java:${protoVer}"
   implementation "io.grpc:grpc-protobuf:${grpcVer}"
   implementation "io.grpc:grpc-stub:${grpcVer}"
+  golang {
+    build "github.com/golang/protobuf/protoc-gen-go"
+  }
 }
 
 jar {
@@ -128,6 +135,51 @@ task cmake() {
     exec {
       workingDir "build"
       commandLine "make", "DESTDIR=dist", "install"
+    }
+  }
+}
+
+golang {
+  packagePath = "github.com/figroc/tensorflow-serving-client"
+}
+
+task generateProtoGo {
+  dependsOn "resolveBuildDependencies"
+  ext {
+    generated = "${protobuf.generatedFilesBaseDir}/main/go"
+  }
+  doLast {
+    mkdir ext.generated
+    fileTree("proto"){ include "**/*.proto" }.visit { fd ->
+      if (fd.file.directory) return
+      exec {
+        commandLine "protoc", "-Iproto", "--go_out=plugins=grpc:${ext.generated}", fd.path
+      }
+    }
+    copy {
+      from "go.mod", "lib.go"
+      into ext.generated
+    }
+    fileTree(ext.generated){ include "*", "github.com/*" }.visit { fd ->
+      if (fd.file.file) return
+      if (fd.path == "github.com") return
+      copy {
+        from "go.mod"
+        into "${ext.generated}/${fd.path}"
+        filter { line ->
+          line.startsWith("module") ? "module ${fd.path}" : null
+        }
+      }
+    }
+  }
+}
+
+task golang() {
+  dependsOn "generateProtoGo"
+  doLast {
+    exec {
+      workingDir generateProtoGo.ext.generated
+      commandLine "go", "build"
     }
   }
 }
