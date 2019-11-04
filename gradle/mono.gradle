@@ -2,7 +2,8 @@ task mono {
   dependsOn "generateProto"
   ext {
     distEnv = dist.plus([source: "${protoGenMainRel}/csharp",
-                         output: "${buildDir}/msbuild"])
+                         output: "${buildDir}/msbuild",
+                         config: "Release"])
   }
   inputs.file "mono.csproj"
   inputs.dir distEnv.source
@@ -22,5 +23,5 @@ task nuget(type: Exec) {
   dependsOn "mono"
   inputs.dir mono.distEnv.output
   environment buildEnviron(mono.distEnv)
-  commandLine "nuget", "push"
+  commandLine "nuget", "push", "${mono.distEnv.output}/${mono.distEnv.config}/${project.name}.${project.version}.nupkg"
 }

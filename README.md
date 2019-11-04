@@ -67,3 +67,5 @@ gradle golang
 gradle mono
 ```
 * `tensorflow-serving-client` is located in `build/msbuild`
+
+The library has been published in nuget.org under the name `tensorflow-serving-client`

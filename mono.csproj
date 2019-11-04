@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <Configuration>Release</Configuration>
+    <Configuration>$(TFSCLIENT_DIST_CONFIG)</Configuration>
     <EnableDefaultItems>false</EnableDefaultItems>
     <GenerateDocumentation>true</GenerateDocumentation>
   </PropertyGroup>

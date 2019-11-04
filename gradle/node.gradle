@@ -31,7 +31,7 @@ task node {
   }
 }
 
-task npm(type: Exec) {
+task npmjs(type: Exec) {
   dependsOn "node"
   inputs.files "${node.source}/**/*"
   workingDir node.source
