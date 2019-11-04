@@ -10,6 +10,7 @@ Currently supported build:
   * Node
   * Go
   * Mono
+  * Rust
 
 Check tensorflow serving project for details: https://tensorflow.github.io/serving/
 
@@ -65,4 +66,11 @@ gradle golang
 ```
 gradle mono
 ```
-* `tensorflow-serving-client` is located in `build/msbuild` under `Release`
+* `tensorflow-serving-client` is located in `build/msbuild`
+
+### build rust crate
+[![Publish Status](https://img.shields.io/crates/v/tensorflow-serving-client)](https://crates.io/crates/tensorflow-serving-client)
+```
+gradle rust
+```
+* `libtensorflow_serving_client` is located in `build/cargo`

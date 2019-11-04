@@ -1,0 +1,20 @@
+[package]
+name = "${TFSCLIENT_DIST_NAME}"
+version = "${TFSCLIENT_DIST_VERSION}"
+authors = ["${TFSCLIENT_DIST_AUTHOR_NAME} <${TFSCLIENT_DIST_AUTHOR_EMAIL}>"]
+license = "${TFSCLIENT_DIST_LICENSE}"
+description = "${TFSCLIENT_DIST_DESCRIPTION}"
+edition = "2018"
+readme = "README.md"
+homepage = "${TFSCLIENT_DIST_URL}"
+repository = "${TFSCLIENT_DIST_URL}"
+documentation = "https://docs.rs/${TFSCLIENT_DIST_NAME}"
+categories = ["api-bindings", "science"]
+
+[dependencies]
+futures = "0.1.29"
+grpcio = "0.4.6"
+protobuf = "2.8.1"
+
+[lib]
+create-type = ["rlib"]

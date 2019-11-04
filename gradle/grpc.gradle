@@ -1,11 +1,5 @@
 apply plugin: "com.google.protobuf"
 
-static def getGrpcPlugin(name) {
-  def path = "which grpc_${name}_plugin".execute()
-  path.waitFor()
-  return path.in.text.trim()
-}
-
 sourceSets {
   main {
     proto {
@@ -20,16 +14,16 @@ protobuf {
   }
   plugins {
     grpc_cpp {
-      path = getGrpcPlugin("cpp")
+      path = pathOfExecutable("grpc_cpp_plugin")
     }
     grpc_java {
       artifact = "io.grpc:protoc-gen-grpc-java:${vers.grpc}"
     }
     grpc_python {
-      path = getGrpcPlugin("python")
+      path = pathOfExecutable("grpc_python_plugin")
     }
     grpc_csharp {
-      path = getGrpcPlugin("csharp")
+      path = pathOfExecutable("grpc_csharp_plugin")
     }
   }
   generateProtoTasks {

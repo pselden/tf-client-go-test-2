@@ -1,8 +1,10 @@
 task node {
-  inputs.files "proto/**/*", "index.js", "package.json"
   ext {
     source = "${buildDir}/node"
   }
+  inputs.file "package.json"
+  inputs.file "index.js"
+  inputs.dir "proto"
   doLast {
     mkdir source
     exec {
@@ -33,7 +35,7 @@ task node {
 
 task npmjs(type: Exec) {
   dependsOn "node"
-  inputs.files "${node.source}/**/*"
+  inputs.dir node.source
   workingDir node.source
   commandLine "npm", "publish"
 }

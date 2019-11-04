@@ -33,6 +33,12 @@ static def buildEnviron(options, prefix="TFSCLIENT_DIST") {
   }
 }
 
+static def pathOfExecutable(name) {
+  def path = "which ${name}".execute()
+  path.waitFor()
+  return path.in.text.trim()
+}
+
 version = "${vers.tfs}"
 
 apply plugin: "java-library"
@@ -51,6 +57,7 @@ apply from: "gradle/wheel.gradle"
 apply from: "gradle/node.gradle"
 apply from: "gradle/golang.gradle"
 apply from: "gradle/mono.gradle"
+apply from: "gradle/rust.gradle"
 
 task buildAll {
   dependsOn "cmake"
@@ -59,6 +66,7 @@ task buildAll {
   dependsOn "node"
   dependsOn "golang"
   dependsOn "mono"
+  dependsOn "rust"
 }
 
 apply from: "gradle/ossrh.gradle"
@@ -68,4 +76,5 @@ task publishAll {
   dependsOn "twine"
   dependsOn "npmjs"
   dependsOn "nuget"
+  dependsOn "crate"
 }

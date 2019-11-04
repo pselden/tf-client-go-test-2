@@ -1,8 +1,6 @@
 task installProtocGenGo(type: Exec) {
   onlyIf {
-    def path = "which protoc-gen-go".execute()
-    path.waitFor()
-    path.in.text.trim() == ""
+    pathOfExecutable("protoc-gen-go") == ""
   }
   commandLine "go", "get", "github.com/golang/protobuf/protoc-gen-go"
 }
