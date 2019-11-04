@@ -1,4 +1,14 @@
+task installProtocGenGo(type: Exec) {
+  onlyIf {
+    def path = "which protoc-gen-go".execute()
+    path.waitFor()
+    path.in.text.trim() == ""
+  }
+  commandLine "go", "get", "github.com/golang/protobuf/protoc-gen-go"
+}
+
 task generateProtoGo {
+  dependsOn "installProtocGenGo"
   ext {
     source = "${protoGenMainDir}/go"
   }
@@ -31,13 +41,9 @@ task generateProtoGo {
   }
 }
 
-task golang {
+task golang(type: Exec) {
   dependsOn "generateProtoGo"
   inputs.dir generateProtoGo.source
-  doLast {
-    exec {
-      workingDir generateProtoGo.source
-      commandLine "go", "build"
-    }
-  }
+  workingDir generateProtoGo.source
+  commandLine "go", "build"
 }
