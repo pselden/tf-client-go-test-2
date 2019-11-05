@@ -61,6 +61,7 @@ task rust(type: Exec) {
   environment "CARGO_TARGET_DIR", "${buildDir}/cargo"
   workingDir generateProtoRust.source
   commandLine "cargo", "build"
+  args(dist.build == "release" ? ["--release"] : [])
 }
 
 task crate(type: Exec) {

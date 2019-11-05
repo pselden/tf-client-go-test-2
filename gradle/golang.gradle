@@ -44,4 +44,5 @@ task golang(type: Exec) {
   inputs.dir generateProtoGo.source
   workingDir generateProtoGo.source
   commandLine "go", "build"
+  args(dist.build == "release" ? ["-ldflags", "-s -w"] : [])
 }

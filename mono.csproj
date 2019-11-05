@@ -3,30 +3,30 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <Configuration>$(TFSCLIENT_DIST_CONFIG)</Configuration>
+    <Configuration>$(TFSCLIENT_BUILD)</Configuration>
     <EnableDefaultItems>false</EnableDefaultItems>
     <GenerateDocumentation>true</GenerateDocumentation>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(TFSCLIENT_DIST_SOURCE)/**/*.cs" />
+    <Compile Include="$(TFSCLIENT_SOURCE)/**/*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.10.0" />
-    <PackageReference Include="Grpc.Core" Version="2.24.0" />
+    <PackageReference Include="Google.Protobuf" Version="$(TFSCLIENT_VERSION_PROTO)" />
+    <PackageReference Include="Grpc.Core" Version="$(TFSCLIENT_VERSION_GRPC_DOTNET)" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>$(TFSCLIENT_DIST_VERSION)</Version>
-    <AssemblyName>$(TFSCLIENT_DIST_NAME)</AssemblyName>
-    <AssemblyTitle>$(TFSCLIENT_DIST_TITLE)</AssemblyTitle>
-    <Company>$(TFSCLIENT_DIST_AUTHOR_NAME)</Company>
-    <Description>$(TFSCLIENT_DIST_DESCRIPTION)</Description>
-    <BaseOutputPath>$(TFSCLIENT_DIST_OUTPUT)</BaseOutputPath>
+    <Version>$(TFSCLIENT_VERSION)</Version>
+    <AssemblyName>$(TFSCLIENT_NAME)</AssemblyName>
+    <AssemblyTitle>$(TFSCLIENT_NAME_TITLE)</AssemblyTitle>
+    <Company>$(TFSCLIENT_AUTHOR_NAME)</Company>
+    <Description>$(TFSCLIENT_DESCRIPTION)</Description>
+    <BaseOutputPath>$(TFSCLIENT_OUTPUT)</BaseOutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <Title>$(TFSCLIENT_DIST_TITLE)</Title>
-    <Authors>$(TFSCLIENT_DIST_AUTHOR_NAME)</Authors>
-    <Owners>$(TFSCLIENT_DIST_AUTHOR_ID)</Owners>
-    <PackageLicenseExpression>$(TFSCLIENT_DIST_LICENSE)</PackageLicenseExpression>
-    <RepositoryUrl>$(TFSCLIENT_DIST_URL)</RepositoryUrl>
+    <Title>$(TFSCLIENT_NAME_TITLE)</Title>
+    <Authors>$(TFSCLIENT_AUTHOR_NAME)</Authors>
+    <Owners>$(TFSCLIENT_AUTHOR_ID)</Owners>
+    <PackageLicenseExpression>$(TFSCLIENT_LICENSE)</PackageLicenseExpression>
+    <RepositoryUrl>$(TFSCLIENT_URL)</RepositoryUrl>
   </PropertyGroup>
 </Project>

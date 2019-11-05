@@ -14,21 +14,33 @@ ext {
     grpc: "1.24.0",
     proto: "3.10.0"]
   dist = [
-    name: project.name,
-    version: vers.tfs,
-    title: "Tensorflow Serving Client",
+    build: "release",
+    name: [
+      _: project.name,
+      title: project.name.tokenize("-").collect{it.capitalize()}.join(" "),
+      camel: project.name.tokenize("-").collect{it.capitalize()}.join(""),
+      snake: project.name.replaceAll("-", "_")],
+    version: [
+      _: vers.tfs,
+      grpc: [
+        _: vers.grpc,
+        dotnet: vers.grpc.tokenize(".").withIndex().collect{ v, i ->
+                  i == 0 ? ((v as int) + 1) : v
+                }.join(".")],
+      proto: vers.proto],
     license: "Apache-2.0",
-    url: "https://github.com/figroc/tensorflow-serving-client",
     author: [
+      _: "Figroc Chen <figroc@gmail.com>",
       id: "figroc",
       name: "Figroc Chen",
       email: "figroc@gmail.com"],
+    url: "https://github.com/figroc/tensorflow-serving-client",
     description: "A prebuilt tensorflow serving client from the tensorflow serving proto files"]
 }
 
-static def buildEnviron(options, prefix="TFSCLIENT_DIST") {
+static def buildEnviron(options, prefix="TFSCLIENT") {
   return options.collectEntries([:]) { k, v ->
-    def key = "${prefix}_${k.toUpperCase()}".toString()
+    def key = k == "_" ? prefix : "${prefix}_${k.toUpperCase()}".toString()
     return (v instanceof Map) ? buildEnviron(v, key) : [(key): v]
   }
 }

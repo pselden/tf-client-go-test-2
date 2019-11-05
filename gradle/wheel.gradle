@@ -2,7 +2,7 @@ task wheel {
   dependsOn "generateProto"
   ext {
     distEnv = dist.plus([
-      name: "${project.name.replace('-', '_')}_grpc",
+      name_: "${dist.name.snake}_grpc",
       source: "${protoGenMainRel}/python",
       output: "${buildDir}/dist"])
   }
@@ -28,7 +28,7 @@ task wheel {
 task twine(type: Exec) {
   dependsOn "wheel"
   ext {
-    target = "${wheel.distEnv.output}/${wheel.distEnv.name}-*"
+    target = "${wheel.distEnv.output}/${wheel.distEnv.name_}-*"
   }
   inputs.files target
   commandLine "twine", "upload", "-s", "-i", "50E54CCB", target

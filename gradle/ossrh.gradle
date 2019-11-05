@@ -19,7 +19,7 @@ publishing {
       artifact sourcesJar
       artifact javadocJar
       pom {
-        name = dist.title
+        name = dist.name.title
         description = dist.description
         url = dist.url
         scm {

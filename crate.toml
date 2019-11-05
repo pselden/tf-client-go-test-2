@@ -1,14 +1,14 @@
 [package]
-name = "${TFSCLIENT_DIST_NAME}"
-version = "${TFSCLIENT_DIST_VERSION}"
-authors = ["${TFSCLIENT_DIST_AUTHOR_NAME} <${TFSCLIENT_DIST_AUTHOR_EMAIL}>"]
-license = "${TFSCLIENT_DIST_LICENSE}"
-description = "${TFSCLIENT_DIST_DESCRIPTION}"
+name = "${TFSCLIENT_NAME}"
+version = "${TFSCLIENT_VERSION}"
+authors = ["${TFSCLIENT_AUTHOR}"]
+license = "${TFSCLIENT_LICENSE}"
+description = "${TFSCLIENT_DESCRIPTION}"
 edition = "2018"
 readme = "README.md"
-homepage = "${TFSCLIENT_DIST_URL}"
-repository = "${TFSCLIENT_DIST_URL}"
-documentation = "https://docs.rs/${TFSCLIENT_DIST_NAME}"
+homepage = "${TFSCLIENT_URL}"
+repository = "${TFSCLIENT_URL}"
+documentation = "https://docs.rs/${TFSCLIENT_NAME}"
 categories = ["api-bindings", "science"]
 
 [dependencies]
