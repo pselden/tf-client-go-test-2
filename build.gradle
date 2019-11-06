@@ -11,14 +11,13 @@ ext {
   vers = [
     tfs: file("VERSION").text.trim(),
     jvm: "8",
-    grpc: "1.24.0",
+    grpc: "1.23.0",
     proto: "3.10.0"]
   dist = [
     build: "release",
     name: [
       _: project.name,
       title: project.name.tokenize("-").collect{it.capitalize()}.join(" "),
-      camel: project.name.tokenize("-").collect{it.capitalize()}.join(""),
       snake: project.name.replaceAll("-", "_")],
     version: [
       _: vers.tfs,

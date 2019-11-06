@@ -8,6 +8,7 @@ addons:
       - grpc
       - mono
       - nuget
+      - pkg-config
       - protobuf
       - rust
     casks:
