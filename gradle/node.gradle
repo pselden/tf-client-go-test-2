@@ -5,6 +5,7 @@ task node {
   inputs.file "package.json"
   inputs.file "index.js"
   inputs.dir "proto"
+  outputs.dir source
   doLast {
     mkdir source
     exec {
@@ -15,7 +16,7 @@ task node {
     }
     copy {
       from projectDir
-      include "index.js", "proto/**/*", "LICENSE", "README.md"
+      include "index.js", "proto/**", "LICENSE", "README.md"
       into source
     }
     exec {
@@ -38,4 +39,12 @@ task npmjs(type: Exec) {
   inputs.dir node.source
   workingDir node.source
   commandLine "npm", "publish"
+}
+
+task __node__(type: Copy) {
+  dependsOn "node"
+  inputs.file "${node.source}/package.json"
+  outputs.file "package.json"
+  from "${node.source}/package.json"
+  into "."
 }

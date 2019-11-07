@@ -1,10 +1,10 @@
 [package]
+edition = "2018"
 name = "${TFSCLIENT_NAME}"
 version = "${TFSCLIENT_VERSION}"
 authors = ["${TFSCLIENT_AUTHOR}"]
 license = "${TFSCLIENT_LICENSE}"
 description = "${TFSCLIENT_DESCRIPTION}"
-edition = "2018"
 readme = "README.md"
 homepage = "${TFSCLIENT_URL}"
 repository = "${TFSCLIENT_URL}"
@@ -13,8 +13,8 @@ categories = ["api-bindings", "science"]
 
 [dependencies]
 futures = "0.1.29"
-grpcio = "0.4.6"
-protobuf = "2.8.1"
+grpcio = "${TFSCLIENT_VERSION_GRPC_RUST}"
+protobuf = "${TFSCLIENT_VERSION_PROTO_RUST}"
 
 [lib]
 crate-type = ["rlib"]

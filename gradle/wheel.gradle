@@ -33,3 +33,34 @@ task twine(type: Exec) {
   inputs.files target
   commandLine "twine", "upload", "-s", "-i", "50E54CCB", target
 }
+
+task __python__ {
+  dependsOn "wheel"
+  ext {
+    src = "python"
+    cfg = file("setup.py")
+    tmp = file("${buildDir}/setup.py")
+  }
+  inputs.file cfg
+  inputs.dir wheel.distEnv.source
+  outputs.file cfg
+  outputs.dir src
+  doLast {
+    copy {
+      from wheel.distEnv.source
+      include "tensorflow/**", "tensorflow_serving/**"
+      into src
+    }
+    exec {
+      standardInput cfg.newInputStream()
+      standardOutput tmp.newOutputStream()
+      commandLine "sed", "s/environ\\[\"\\(.*\\)\"\\]/\"\\\${\\1}\"/g"
+    }
+    exec {
+      standardInput tmp.newInputStream()
+      standardOutput cfg.newOutputStream()
+      environment buildEnviron(wheel.distEnv.plus([source: src]))
+      commandLine "envsubst"
+    }
+  }
+}

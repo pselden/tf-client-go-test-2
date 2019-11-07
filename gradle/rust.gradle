@@ -21,6 +21,7 @@ task generateProtoRust {
   }
   inputs.file "crate.toml"
   inputs.dir "proto"
+  outputs.dir source
   doLast {
     mkdir generated
     fileTree("proto"){ include "**/*.proto" }.visit { fd ->
@@ -70,4 +71,27 @@ task crate(type: Exec) {
   environment "CARGO_TARGET_DIR", "${buildDir}/cargo"
   workingDir generateProtoRust.source
   commandLine "cargo", "publish"
+}
+
+task __rust__ {
+  dependsOn "rust"
+  ext {
+    cfg = "Cargo.toml"
+    src = "rust"
+  }
+  inputs.dir generateProtoRust.source
+  outputs.file cfg
+  outputs.dir src
+  doLast {
+    copy {
+      from "${generateProtoRust.source}/src"
+      into src
+    }
+    copy {
+      from "${generateProtoRust.source}/${cfg}"
+      into "."
+    }
+    file(cfg).append("\npath = \"${src}/lib.rs\"\n")
+    delete { delete "crate.toml" }
+  }
 }

@@ -10,9 +10,10 @@ task generateProtoGo {
   ext {
     source = "${protoGenMainDir}/go"
   }
-  inputs.file "go.mod"
+  inputs.file "mod.go"
   inputs.file "lib.go"
   inputs.dir "proto"
+  outputs.dir source
   doLast {
     mkdir source
     fileTree("proto"){ include "**/*.proto" }.visit { fd ->
@@ -22,17 +23,23 @@ task generateProtoGo {
       }
     }
     copy {
-      from "lib.go", "go.mod"
+      from "lib.go"
       into source
+    }
+    exec {
+      environment buildEnviron(dist)
+      standardInput file("mod.go").newInputStream()
+      standardOutput file("${source}/go.mod").newOutputStream()
+      commandLine "envsubst"
     }
     fileTree(source){ include "*", "github.com/*" }.visit { fd ->
       if (fd.file.file) return
       if (fd.path == "github.com") return
       copy {
-        from "go.mod"
+        from "${source}/go.mod"
         into "${source}/${fd.path}"
         filter { line ->
-          line.startsWith("module") ? "module ${fd.path}" : null
+          line.startsWith("module") ? "module ${fd.path}" : line
         }
       }
     }
@@ -42,7 +49,32 @@ task generateProtoGo {
 task golang(type: Exec) {
   dependsOn "generateProtoGo"
   inputs.dir generateProtoGo.source
+  outputs.dir generateProtoGo.source
   workingDir generateProtoGo.source
   commandLine "go", "build"
   args(dist.build == "release" ? ["-ldflags", "-s -w"] : [])
+  args "./..."
+}
+
+task __golang__ {
+  dependsOn "golang"
+  ext {
+    src = "go"
+  }
+  inputs.dir generateProtoGo.source
+  outputs.dir src
+  doLast {
+    copy {
+      from generateProtoGo.source
+      exclude "go.sum", "go.mod"
+      into src
+    }
+    copy {
+      from "${generateProtoGo.source}/go.mod"
+      into src
+      filter { line ->
+        line.startsWith("module") ? (line + "/go") : line
+      }
+    }
+  }
 }
