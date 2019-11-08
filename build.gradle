@@ -6,39 +6,33 @@ buildscript {
     classpath "com.google.protobuf:protobuf-gradle-plugin:0.8.10"
   }
 }
+
 //---export-begin---//
 ext {
-  vers = [
-    tfs: file("VERSION").text.trim(),
-    jvm: "8",
-    grpc: "1.23.0",
-    proto: "3.10.0"]
-  dist = [
-    build: "release",
-    name: [
-      _: project.name,
-      title: project.name.tokenize("-").collect{it.capitalize()}.join(" "),
-      snake: project.name.replaceAll("-", "_")],
-    version: [
-      _: vers.tfs,
-      grpc: [
-        _: vers.grpc,
-        dotnet: vers.grpc.tokenize(".").withIndex().collect{ v, i ->
-                  i == 0 ? ((v as int) + 1) : v
-                }.join("."),
-        rust: "0.4.6"],
-      proto: [
-        _: vers.proto,
-        go: "1.3.0",
-        rust: "2.8.1"]],
-    license: "Apache-2.0",
-    author: [
-      _: "Figroc Chen <figroc@gmail.com>",
-      id: "figroc",
-      name: "Figroc Chen",
-      email: "figroc@gmail.com"],
-    url: "https://github.com/figroc/tensorflow-serving-client",
-    description: "A prebuilt tensorflow serving client from the tensorflow serving proto files"]
+  vers = [tfs: file("VERSION").text.trim(),
+          jvm: "8",
+          grpc: "1.23.0",
+          proto: "3.10.0"]
+  dist = [build: "release",
+          name: [_: project.name,
+                 title: project.name.tokenize("-").collect{it.capitalize()}.join(" "),
+                 snake: project.name.replaceAll("-", "_")],
+          version: [_: vers.tfs,
+                    grpc: [_: vers.grpc,
+                           dotnet: vers.grpc.tokenize(".").withIndex().collect{ v, i ->
+                                     i == 0 ? ((v as int) + 1) : v
+                                   }.join("."),
+                           rust: "0.4.6"],
+                    proto: [_: vers.proto,
+                            go: "1.3.0",
+                            rust: "2.8.1"]],
+          license: "Apache-2.0",
+          author: [_: "Figroc Chen <figroc@gmail.com>",
+                   id: "figroc",
+                   name: "Figroc Chen",
+                   email: "figroc@gmail.com"],
+          url: "https://github.com/figroc/tensorflow-serving-client",
+          description: "A prebuilt tensorflow serving client from the tensorflow serving proto files"]
 }
 
 version = "${vers.tfs}"
@@ -52,6 +46,7 @@ repositories {
   mavenCentral()
 }
 //---export-end---//
+
 static def buildEnviron(options, prefix="TFSCLIENT") {
   return options.collectEntries { k, v ->
     def key = k == "_" ? prefix : "${prefix}_${k.toUpperCase()}".toString()
@@ -96,11 +91,11 @@ task publishAll {
 
 task __sources__(type: Delete) {
   dependsOn "__cpp__"
-  dependsOn "__golang__"
   dependsOn "__java__"
-  dependsOn "__csharp__"
-  dependsOn "__node__"
-  dependsOn "__rust__"
   dependsOn "__python__"
+  dependsOn "__node__"
+  dependsOn "__golang__"
+  dependsOn "__csharp__"
+  dependsOn "__rust__"
   delete "update.sh"
 }
