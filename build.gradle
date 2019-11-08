@@ -94,7 +94,7 @@ task publishAll {
   dependsOn "crate"
 }
 
-task __sources__ {
+task __sources__(type: Delete) {
   dependsOn "__cpp__"
   dependsOn "__golang__"
   dependsOn "__java__"
@@ -102,4 +102,5 @@ task __sources__ {
   dependsOn "__node__"
   dependsOn "__rust__"
   dependsOn "__python__"
+  delete "update.sh"
 }

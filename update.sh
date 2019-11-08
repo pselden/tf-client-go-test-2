@@ -28,7 +28,7 @@ function importProto {
     mkdir -p ${goto}/${1%/*}
     \cp ${repo}/${1} ${goto}/${1}
     local proto=( $(grep '^import ' ${goto}/${1} \
-                  | grep -Eo '((\w|\d|_|-)+(/|\.))+proto') )
+                  | grep -Eo '((\w|-)+(/|\.))+proto') )
     for p in ${proto[@]}; do
       if [[ "${p:0:10}" == "tensorflow" ]]; then
         importProto ${p}
