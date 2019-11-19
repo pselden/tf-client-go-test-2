@@ -11,7 +11,7 @@ task cmake {
     exec {
       workingDir "${buildDir}"
       environment buildEnviron(distEnv)
-      commandLine "cmake", "-DCMAKE_INSTALL_PREFIX=", ".."
+      commandLine "cmake", "-DCMAKE_INSTALL_PREFIX=", "-DCMAKE_BUILD_TYPE=${dist.build}", ".."
     }
     exec {
       workingDir "${buildDir}"
