@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.com/figroc/tensorflow-serving-client.svg?branch=master)](https://travis-ci.com/figroc/tensorflow-serving-client)
 
 A prebuilt tensorflow serving client from the tensorflow serving proto files.
+
 Currently supported build:
   * C++
   * Java
@@ -15,12 +16,15 @@ Currently supported build:
 Check tensorflow serving project for details: https://tensorflow.github.io/serving/
 
 ### update proto files
+[![Release Status](https://img.shields.io/github/v/release/tensorflow/tensorflow?label=tensorflow&sort=semver)](https://github.com/tensorflow/tensorflow)
+[![Release Status](https://img.shields.io/github/v/release/tensorflow/serving?label=serving&sort=semver)](https://github.com/tensorflow/serving)
+[![Release Status](https://img.shields.io/github/v/tag/figroc/tensorflow-serving-client?label=client&sort=semver)](https://github.com/figroc/tensorflow-serving-client)
 ```
 ./update.sh
 ```
 * the desired version can be specified in the `VERSION` file
 
-### prerequisite
+### PREREQUISITE
 
 Grpc tools are needed for building variant packages.
 
@@ -29,20 +33,21 @@ Install `protobuf-compiler-grpc` on Ubuntu and `grpc` on macOS.
 see `.travis.yml` for details
 
 ### build native library
+[![Publish Status](https://img.shields.io/spack/v/tensorflow-serving-client)](https://github.com/spack/spack/tree/develop/var/spack/repos/builtin/packages/tensorflow-serving-client)
 ```
 gradle cmake
 ```
 * `libtensorflow-serving-client.a` is located in `build/dist/lib`
 * **prerequisite:** `libprotobuf-dev` on Ubuntu and `protobuf` on macOS
 
-### build jar file
+### build java jar
 [![Publish Status](https://img.shields.io/maven-central/v/io.opil/tensorflow-serving-client)](https://search.maven.org/search?q=g:io.opil%20AND%20a:tensorflow-serving-client)
 ```
 gradle build
 ```
 * `tensorflow-serving-client` is located in `build/libs`
 
-### build wheel file
+### build python wheel
 [![Publish Status](https://img.shields.io/pypi/v/tensorflow-serving-client-grpc)](https://pypi.org/project/tensorflow-serving-client-grpc)
 ```
 gradle wheel
