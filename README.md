@@ -16,8 +16,8 @@ Currently supported build:
 Check tensorflow serving project for details: https://tensorflow.github.io/serving/
 
 ### update proto files
-[![Release Status](https://img.shields.io/github/v/release/tensorflow/tensorflow?label=tensorflow&sort=semver)](https://github.com/tensorflow/tensorflow)
-[![Release Status](https://img.shields.io/github/v/release/tensorflow/serving?label=serving&sort=semver)](https://github.com/tensorflow/serving)
+[![Release Status](https://img.shields.io/github/v/tag/tensorflow/tensorflow?label=tensorflow&sort=semver&include_prereleases)](https://github.com/tensorflow/tensorflow)
+[![Release Status](https://img.shields.io/github/v/tag/tensorflow/serving?label=serving&sort=semver&include_prereleases)](https://github.com/tensorflow/serving)
 [![Release Status](https://img.shields.io/github/v/tag/figroc/tensorflow-serving-client?label=client&sort=semver)](https://github.com/figroc/tensorflow-serving-client)
 ```
 ./update.sh
@@ -53,7 +53,6 @@ gradle build
 gradle wheel
 ```
 * `tensorflow_serving_client_grpc` is located in `build/dist`
-* **prerequisite:** `setuptools`
 
 ### build node tarball
 [![Publish Status](https://img.shields.io/npm/v/tensorflow-serving-client)](https://www.npmjs.com/package/tensorflow-serving-client)
@@ -68,7 +67,6 @@ gradle node
 gradle golang
 ```
 * `tensorflow-serving-client` is located in `build/generated/source/proto/main/go`
-* **prerequisite:** `github.com/golang/protobuf/protoc-gen-go` for build
 
 ### build mono library
 [![Publish Status](https://img.shields.io/nuget/v/tensorflow-serving-client)](https://www.nuget.org/packages/tensorflow-serving-client)
