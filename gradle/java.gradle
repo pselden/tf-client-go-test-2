@@ -2,6 +2,7 @@
 group = "io.opil"
 
 dependencies {
+  compileOnly "javax.annotation:javax.annotation-api:1.3.2"
   implementation "com.google.protobuf:protobuf-java:${vers.proto}"
   implementation "io.grpc:grpc-protobuf:${vers.grpc}"
   implementation "io.grpc:grpc-stub:${vers.grpc}"
