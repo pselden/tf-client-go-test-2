@@ -23,7 +23,7 @@ task nuget(type: Exec) {
   dependsOn "mono"
   inputs.dir mono.distEnv.output
   environment buildEnviron(mono.distEnv)
-  commandLine "nuget", "push", "${mono.distEnv.output}/${mono.distEnv.config}/${project.name}.${project.version}.nupkg"
+  commandLine "nuget", "push", "${mono.distEnv.output}/${mono.distEnv.build}/${project.name}.${project.version}.nupkg"
 }
 
 task __csharp__() {
