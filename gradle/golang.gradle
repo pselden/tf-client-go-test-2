@@ -146,20 +146,25 @@ task __golang__ {
   dependsOn "golang"
   ext {
     src = "go"
+    git = dist.url.replaceFirst('^\\w+://', '').replaceFirst('/$', '')
   }
   inputs.dir generateProtoGo.source
   outputs.dir src
   doLast {
     copy {
       from generateProtoGo.source
-      exclude "go.mod", "**/go.sum"
+      exclude "**/go.mod", "**/go.sum"
       into src
+      filter { line ->
+         line.replaceFirst('(\\w+\\s+")(tensorflow(_serving)?(/\\w+)*")',
+                           '$1' + git + '/' + src + '/$2')
+      }
     }
     copy {
       from "${generateProtoGo.source}/go.mod"
-      into src
+      into "."
       filter { line ->
-        line.startsWith("module") ? (line + "/go") : line
+        line.matches('\\s*(replace|tensorflow(_serving)?)\\s+.*') ? null : line
       }
     }
     delete { delete "mod.go", "lib.go" }
