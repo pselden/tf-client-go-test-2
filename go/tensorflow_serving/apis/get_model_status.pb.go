@@ -7,7 +7,7 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	math "math"
-	util "tensorflow_serving/util"
+	util "github.com/figroc/tensorflow-serving-client/go/tensorflow_serving/util"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
