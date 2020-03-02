@@ -5,9 +5,10 @@ package tensorflow
 
 import (
 	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"
-	framework "github.com/figroc/tensorflow-serving-client/go/tensorflow/core/framework"
 	math "math"
+
+	proto "github.com/golang/protobuf/proto"
+	framework "github.com/pselden/tf-client-go-test-2/v2/go/go/tensorflow/core/framework"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

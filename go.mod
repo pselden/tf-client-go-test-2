@@ -1,4 +1,4 @@
-module github.com/figroc/tensorflow-serving-client/v2
+module github.com/pselden/tf-client-go-test-2/v2
 
 go 1.12
 

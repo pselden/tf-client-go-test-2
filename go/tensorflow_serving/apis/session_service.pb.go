@@ -6,12 +6,13 @@ package tensorflow_serving
 import (
 	context "context"
 	fmt "fmt"
+	math "math"
+
 	proto "github.com/golang/protobuf/proto"
-	protobuf "github.com/figroc/tensorflow-serving-client/go/tensorflow/core/protobuf"
+	protobuf "github.com/pselden/tf-client-go-test-2/v2/go/go/tensorflow/core/protobuf"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

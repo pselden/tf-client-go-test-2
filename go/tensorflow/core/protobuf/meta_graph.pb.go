@@ -5,10 +5,11 @@ package tensorflow
 
 import (
 	fmt "fmt"
+	math "math"
+
 	proto "github.com/golang/protobuf/proto"
 	any "github.com/golang/protobuf/ptypes/any"
-	framework "github.com/figroc/tensorflow-serving-client/go/tensorflow/core/framework"
-	math "math"
+	framework "github.com/pselden/tf-client-go-test-2/v2/go/go/tensorflow/core/framework"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -52,9 +53,9 @@ type MetaGraphDef struct {
 	AssetFileDef []*AssetFileDef `protobuf:"bytes,6,rep,name=asset_file_def,json=assetFileDef,proto3" json:"asset_file_def,omitempty"`
 	// Extra information about the structure of functions and stateful objects.
 	ObjectGraphDef       *SavedObjectGraph `protobuf:"bytes,7,opt,name=object_graph_def,json=objectGraphDef,proto3" json:"object_graph_def,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                   `json:"-"`
-	XXX_unrecognized     []byte                     `json:"-"`
-	XXX_sizecache        int32                      `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
 }
 
 func (m *MetaGraphDef) Reset()         { *m = MetaGraphDef{} }

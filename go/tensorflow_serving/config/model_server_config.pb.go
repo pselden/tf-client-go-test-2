@@ -5,10 +5,11 @@ package tensorflow_serving
 
 import (
 	fmt "fmt"
+	math "math"
+
 	proto "github.com/golang/protobuf/proto"
 	any "github.com/golang/protobuf/ptypes/any"
-	math "math"
-	storage_path "github.com/figroc/tensorflow-serving-client/go/tensorflow_serving/sources/storage_path"
+	storage_path "github.com/pselden/tf-client-go-test-2/v2/go/go/tensorflow_serving/sources/storage_path"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
