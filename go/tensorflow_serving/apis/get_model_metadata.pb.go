@@ -9,7 +9,7 @@ import (
 
 	proto "github.com/golang/protobuf/proto"
 	any "github.com/golang/protobuf/ptypes/any"
-	protobuf "github.com/pselden/tf-client-go-test-2/v2/go/go/tensorflow/core/protobuf"
+	protobuf "github.com/pselden/tf-client-go-test-2/v2/go/tensorflow/core/protobuf"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

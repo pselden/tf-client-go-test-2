@@ -8,7 +8,7 @@ import (
 	math "math"
 
 	proto "github.com/golang/protobuf/proto"
-	example "github.com/pselden/tf-client-go-test-2/v2/go/go/tensorflow/core/example"
+	example "github.com/pselden/tf-client-go-test-2/v2/go/tensorflow/core/example"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
